@@ -98,6 +98,8 @@ FROM (SELECT "Código candidato_Candidato_adulto", SUM("Coste") AS "Coste_total"
 	  FROM "Pagos_candidatos" WHERE "Código candidato_Candidato_adulto" = "Código candidato_Candidato_adulto" 
 	  GROUP BY "Código candidato_Candidato_adulto") AS T1
 
+/*BORRAMOS VISTAS*/
+DROP VIEW "Pagos_candidatos" CASCADE
 			
 -- 10. MOSTRAR EL NÚMERO DE CANDIDATOS ADULTOS Y EL NÚMERO DE CANDIDATOS NINIOS QUE HAY EN LA BASE DE DATOS.
 
@@ -131,6 +133,10 @@ CREATE VIEW "Total_clientes"
 SELECT (((SELECT CAST("Clientes_Empresa_de_moda" AS FLOAT) FROM "Total_clientes") / (SELECT "Clientes_totales" FROM "Total_clientes"))*100)
 AS "Porcentaje_empresas_moda", (((SELECT CAST("Clientes_Empresa_de_publicidad_y_cine" AS FLOAT) 
 								  FROM "Total_clientes") / (SELECT "Clientes_totales" FROM "Total_clientes"))*100) AS "Porcentaje_empresas_publicidad"
+
+/*BORRAMOS VISTAS*/
+DROP VIEW "Total_clientes"
+
 --UN SEGUNDO CAST EN LA OPERACIÓN DE LA DIVISIÓN NO SERÍA NECESARIO REALIZARLO PORQUE SQL LO CASTEA AUTOMÁTICAMENTE SI UNO DE LOS OPERADORES DE TIPO FLOAT.
 
 -- 14. MOSTRAR EL NOMBRE DE LOS CANDIDATOS QUE HAN SUPERADO ALGUNA PRUEBA DE ALGÚN CASTING, ASÍ COMO EL NOMBRE DEL CASTING
@@ -155,6 +161,10 @@ UNION
 SELECT nombre_candidato_ninio, "Nombre"
 	FROM ("Candidato_ninio_realiza" NATURAL INNER JOIN "Casting_presencial")
 	WHERE "Es_valido" = True
+
+/*BORRAMOS VISTAS*/
+DROP VIEW "Candidato_adulto_realiza3"
+DROP VIEW "Candidato_ninio_realiza"
 
 -- 15. MOSTRAR EL DINERO TOTAL RECAUDADO POR LA EMPRESA
 
@@ -183,7 +193,12 @@ SELECT SUM("Coste") FROM "Pagos_clientes" UNION SELECT SUM("Coste") FROM "Pagos_
 
 /*CONSULTA*/
 SELECT SUM("sum") FROM "COSTE_TOTAL_CLIENTES_CANDIDATOS"
-		
+
+/*BORRAMOS VISTAS*/
+DROP VIEW "COSTE_TOTAL_CLIENTES_CANDIDATOS"
+DROP VIEW "Pagos_candidatos"
+DROP VIEW "Pagos_clientes"	
+	
 -- 16. MOSTRAR EL NOMBRE Y EL TELEFONO DE LOS REPRESENTANTES QUE REPRESENTEN A DOS CANDIDATOS COMO MINIMO 
 
 /*CREAMOS UNA VISTA PARA GUARDAR EL INNER JOIN ENTRE Representante Y SU Telefono (ATRIBUTO MULTIVALUADO)*/
@@ -206,6 +221,8 @@ SELECT DISTINCT "Nombre_representante", "Telefono", COUNT("Código candidato")
 		HAVING COUNT("Código candidato") >= 2
 ORDER BY "Nombre_representante"
 
+/*BORRAMOS VISTAS*/
+DROP VIEW "Representante_con_telefono1" CASCADE
 
 -- 17. MOSTRAR EL DNI DE LOS ADULTOS QUE NO TENGAN REPRESENTANTE.
 
