@@ -340,6 +340,134 @@ public class Conector {
         }
     }
 
+    public void q13() {
+        try {
+            System.out.println("-------------------------------------------------------------------------"
+                    + "\n" + "-------------------------- Decimotercera consulta ------------------------"
+                    + "\n" + "-------------------------------------------------------------------------");
+            System.out.println("Mostrar el porcentaje de clientes que hay de cada tipo");
+
+            //ESTO ES LA CONSULTA CREACION DE LA VISTA
+            String query1 = "CREATE VIEW \"Total_clientes\"\n"
+                    + " 	AS SELECT (SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\") as \"Clientes_totales\",\n"
+                    + "	(SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\" WHERE \"Cliente\".\"Tipo_actividad\" = True) as \"Clientes_Empresa_de_moda\", \n"
+                    + "		(SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\" WHERE \"Cliente\".\"Tipo_actividad\" = False) as \"Clientes_Empresa_de_publicidad_y_cine\"";
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(query1);
+
+            //ESTO ES LA CONSULTA REAL
+            String query2 = "";
+
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(query2);
+
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void q14() {
+        try {
+            System.out.println("-------------------------------------------------------------------------"
+                    + "\n" + "-------------------------- Decimocuarta consulta ------------------------"
+                    + "\n" + "-------------------------------------------------------------------------");
+            System.out.println("MOSTRAR EL NOMBRE DE LOS CANDIDATOS QUE HAN SUPERADO ALGUNA PRUEBA DE ALGÚN CASTING, ASÍ COMO EL NOMBRE DEL CASTING");
+
+            //ESTO ES LA CONSULTA CREACION DE LAS VISTAS
+            String query1 = "CREATE VIEW \"Candidato_adulto_realiza3\"(Nombre_candidato_adulto, \"Código_casting\", \"Es_valido\")\n"
+                    + " 	AS SELECT \"Nombre\", \"Código_casting_Casting_presencial_Fase_Prueba_individual\", \"Valido\"\n"
+                    + "	FROM (\"Candidato_adulto\" INNER JOIN \"Candidato_adulto_realiza_Prueba_individual\"\n"
+                    + "	  ON \"Candidato_adulto\".\"Código candidato\" = \"Candidato_adulto_realiza_Prueba_individual\".\"Código candidato_Candidato_adulto\")	  \n"
+                    + "	  \n"
+                    + "CREATE VIEW \"Candidato_ninio_realiza\"(Nombre_candidato_ninio, \"Código_casting\", \"Es_valido\")\n"
+                    + " 	AS SELECT \"Nombre\", \"Código_casting_Casting_presencial_Fase_Prueba_individual\", \"Valido\"\n"
+                    + "	FROM (\"Candidato_ninio\" INNER JOIN \"Candidato_ninio_realiza_Prueba_individual\"\n"
+                    + "	  ON \"Candidato_ninio\".\"Código candidato\" = \"Candidato_ninio_realiza_Prueba_individual\".\"Código candidato_Candidato_ninio\")";
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(query1);
+
+            //ESTO ES LA CONSULTA REAL
+            String query2 = "";
+
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(query2);
+
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void q15() {
+        try {
+            System.out.println("-------------------------------------------------------------------------"
+                    + "\n" + "-------------------------- Decimoquinta consulta ------------------------"
+                    + "\n" + "-------------------------------------------------------------------------");
+            System.out.println("MOSTRAR EL DINERO TOTAL RECAUDADO POR LA EMPRESA");
+
+            //ESTO ES LA CONSULTA CREACION DE LA VISTA
+            String query1 = "CREATE VIEW \"Pagos_candidatos\" AS\n"
+                    + "SELECT \"Código candidato_Candidato_adulto\", T1.\"Coste\"\n"
+                    + "	FROM (\"Candidato_adulto_realiza_Prueba_individual\" INNER JOIN \"Prueba_individual\" \n"
+                    + "	ON \"Candidato_adulto_realiza_Prueba_individual\".\"Código_prueba_Prueba_individual\" = \"Prueba_individual\".\"Código_prueba\") as T1\n"
+                    + "UNION SELECT \"Código candidato_Candidato_ninio\", T1.\"Coste\" as Coste_total\n"
+                    + "	FROM (\"Candidato_ninio_realiza_Prueba_individual\" INNER JOIN \"Prueba_individual\" \n"
+                    + "	ON \"Candidato_ninio_realiza_Prueba_individual\".\"Código_prueba_Prueba_individual\" = \"Prueba_individual\".\"Código_prueba\") as T1\n"
+                    + "			ORDER BY \"Código candidato_Candidato_adulto\"";
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(query1);
+
+            //ESTO ES LA CONSULTA REAL
+            String query2 = "";
+
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(query2);
+
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void q16() {
+        try {
+            System.out.println("-------------------------------------------------------------------------"
+                    + "\n" + "-------------------------- Decimoquinta consulta ------------------------"
+                    + "\n" + "-------------------------------------------------------------------------");
+            System.out.println("MOSTRAR EL NOMBRE Y EL TELEFONO DE LOS REPRESENTANTES QUE REPRESENTEN A DOS CANDIDATOS COMO MINIMO ");
+
+            //ESTO ES LA CONSULTA CREACION DE LA VISTA
+            String query1 = "CREATE VIEW \"Representante_con_telefono1\" (\"NIF\", \"Nombre_representante\", \"Telefono\")AS \n"
+                    + "SELECT \"NIF\", \"Nombre\", \"Telefono\"\n"
+                    + "FROM \"Representante\" INNER JOIN \"Telefono_representante\" ON \"Representante\".\"NIF\" = \"Telefono_representante\".\"NIF_Representente\"";
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(query1);
+
+            //ESTO ES LA CONSULTA REAL
+            String query2 = "";
+
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(query2);
+
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public void q17() {
         try {
             System.out.println("-------------------------------------------------------------------------"
@@ -356,6 +484,41 @@ public class Conector {
 
             while (rs.next()) {
                 System.out.println(rs.getString(1) + "\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void q18() {
+        try {
+            System.out.println("-------------------------------------------------------------------------"
+                    + "\n" + "-------------------------- Decimoctava consulta ------------------------"
+                    + "\n" + "-------------------------------------------------------------------------");
+            System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO).");
+
+            //ESTO ES LA CONSULTA CREACION DE LA VISTA
+            String query1 = "CREATE VIEW \"Perfil_mas_demandado_casting_online\" (\"Nombre_cliente\", \"Código_casting\", \"Codigo_perfil_Perfil\") AS\n"
+                    + "SELECT \"Nombre\", \"Código_casting\", \"Codigo_perfil_Perfil\"\n"
+                    + "FROM \"Cliente\" INNER JOIN \"Casting_online\" ON \"Cliente\".\"Código_cliente\" = \"Casting_online\".\"Código_cliente_Cliente\" AS T1\n"
+                    + "INNER JOIN \"Casting_online_necesita_Perfil\" ON T1.\"Código_casting\" = \"Casting_online_necesita_Perfil\".\"Código_casting_Casting_online\"\n"
+                    + "\n"
+                    + "CREATE VIEW \"Cliente_casting_online_necesita_perfil\" AS \n"
+                    + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
+                    + "FROM \"Fase\"\n"
+                    + "GROUP BY \"Código_casting_Casting_presencial\"";
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(query1);
+
+            //ESTO ES LA CONSULTA REAL
+            String query2 = "";
+
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(query2);
+
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\n");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -385,6 +548,36 @@ public class Conector {
         }
     }
 
+    public void q20() {
+        try {
+            System.out.println("-------------------------------------------------------------------------"
+                    + "\n" + "---------------------------- Vigesima consulta -------------------------"
+                    + "\n" + "-------------------------------------------------------------------------");
+            System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO).");
+
+            //ESTO ES LA CONSULTA CREACION DE LA VISTA
+            String query1 = "CREATE VIEW \"Num_fases_por_casting_presencial3\" AS \n"
+                    + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
+                    + "FROM \"Fase\"\n"
+                    + "GROUP BY \"Código_casting_Casting_presencial\" ";
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(query1);
+
+            //ESTO ES LA CONSULTA REAL
+            String query2 = "";
+
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(query2);
+
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public static void main(String args[]) throws InstantiationException, IllegalAccessException {
         String entradaTeclado2;
         Scanner entradaEscaner = new Scanner(System.in);
@@ -400,7 +593,7 @@ public class Conector {
             conector.q6();
             conector.q7();
             conector.q8();
-            conector.q9();
+//            conector.q9();
             conector.q10();
             conector.q11();
             conector.q12();
