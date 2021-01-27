@@ -253,19 +253,31 @@ public class Conector {
                     + "\n" + "-------------------------------------------------------------------------");
             System.out.println("MOSTRAR EL PRECIO TOTAL QUE HA DE PAGAR CADA CANDIDATO. ");
 
-            //Creo que hay que hacer esto de abajo 2 veces. La primera no guardamos el resultado, solo es para la vista.
-            //Al acabar la 2a consulta, la que es la consulta real, hay que hacer un borrado de la vista.
-            String query = "SELECT T1.\"Código candidato_Candidato_adulto\" AS \"Codigo_candidatos\", T1.\"Coste_total\"\n"
+//            String query = "DROP VIEW \"Pagos_candidatos\" CASCADE";
+//            Statement st = conn.createStatement();
+//            st.executeQuery(query);
+            String query1 = "CREATE VIEW \"Pagos_candidatos\" AS\n"
+                    + "SELECT \"Código candidato_Candidato_adulto\", T1.\"Coste\"\n"
+                    + "	FROM (\"Candidato_adulto_realiza_Prueba_individual\" INNER JOIN \"Prueba_individual\" \n"
+                    + "	ON \"Candidato_adulto_realiza_Prueba_individual\".\"Código_prueba_Prueba_individual\" = \"Prueba_individual\".\"Código_prueba\") as T1\n"
+                    + "UNION SELECT \"Código candidato_Candidato_ninio\", T1.\"Coste\" as Coste_total\n"
+                    + "	FROM (\"Candidato_ninio_realiza_Prueba_individual\" INNER JOIN \"Prueba_individual\" \n"
+                    + "	ON \"Candidato_ninio_realiza_Prueba_individual\".\"Código_prueba_Prueba_individual\" = \"Prueba_individual\".\"Código_prueba\") as T1\n"
+                    + "			ORDER BY \"Código candidato_Candidato_adulto\"	";
+            Statement st = conn.createStatement();
+            st.executeUpdate(query1);//Este metodo ejecuta la query y refresca la BBDD (sino, con vistas no funciona)
+
+            String query2 = "SELECT T1.\"Código candidato_Candidato_adulto\" AS \"Codigo_candidatos\", T1.\"Coste_total\"\n"
                     + "FROM (SELECT \"Código candidato_Candidato_adulto\", SUM(\"Coste\") AS \"Coste_total\" \n"
                     + "	  FROM \"Pagos_candidatos\" WHERE \"Código candidato_Candidato_adulto\" = \"Código candidato_Candidato_adulto\" \n"
                     + "	  GROUP BY \"Código candidato_Candidato_adulto\") AS T1";
+            ResultSet rs2 = st.executeQuery(query2);
 
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+            while (rs2.next()) {
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\n");
             }
+            String query3 = "DROP VIEW \"Pagos_candidatos\" CASCADE";
+            st.executeUpdate(query3);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -593,7 +605,7 @@ public class Conector {
             conector.q6();
             conector.q7();
             conector.q8();
-//            conector.q9();
+            conector.q9();
             conector.q10();
             conector.q11();
             conector.q12();
