@@ -354,7 +354,7 @@ public class Conector {
     public void q13() {
         try {
             System.out.println("-------------------------------------------------------------------------"
-                    + "\n" + "-------------------------- Decimotercera consulta ------------------------"
+                    + "\n" + "-------------------------- Decimotercera consulta -----------------------"
                     + "\n" + "-------------------------------------------------------------------------");
             System.out.println("Mostrar el porcentaje de clientes que hay de cada tipo");
 
@@ -479,7 +479,7 @@ public class Conector {
     public void q16() {
         try {
             System.out.println("-------------------------------------------------------------------------"
-                    + "\n" + "-------------------------- Decimosexta consulta ------------------------"
+                    + "\n" + "-------------------------- Decimosexta consulta -------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
             System.out.println("MOSTRAR EL NOMBRE Y EL TELEFONO DE LOS REPRESENTANTES QUE REPRESENTEN A DOS CANDIDATOS COMO MINIMO ");
 
@@ -537,48 +537,43 @@ public class Conector {
         }
     }
 
-    public void q18() {
-        try {
-            System.out.println("-------------------------------------------------------------------------"
-                    + "\n" + "-------------------------- Decimoctava consulta ------------------------"
-                    + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO).");
-
-            String query1 = "CREATE VIEW \"Perfil_mas_demandado_casting_online\" (\"Nombre_cliente\", \"Código_casting\", \"Codigo_perfil_Perfil\") AS\n"
-                    + "SELECT \"Nombre\", \"Código_casting\", \"Codigo_perfil_Perfil\"\n"
-                    + "FROM \"Cliente\" INNER JOIN \"Casting_online\" ON \"Cliente\".\"Código_cliente\" = \"Casting_online\".\"Código_cliente_Cliente\" AS T1\n"
-                    + "INNER JOIN \"Casting_online_necesita_Perfil\" ON T1.\"Código_casting\" = \"Casting_online_necesita_Perfil\".\"Código_casting_Casting_online\"\n"
-                    + "\n"
-                    + "CREATE VIEW \"Cliente_casting_online_necesita_perfil\" AS \n"
-                    + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
-                    + "FROM \"Fase\"\n"
-                    + "GROUP BY \"Código_casting_Casting_presencial\"";
-            Statement st = conn.createStatement();
-            st.executeUpdate(query1);
-
-            String query2 = "CREATE VIEW \"Cliente_casting_online_necesita_perfil\" AS \n"
-                    + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
-                    + "FROM \"Fase\"\n"
-                    + "GROUP BY \"Código_casting_Casting_presencial\" ";
-            st.executeUpdate(query2);
-
-            String query3 = "SELECT \"Código_casting_Casting_presencial\", \"Numero_de_fases\" \n"
-                    + "FROM \"Num_fases_por_casting_presencial3\"\n"
-                    + "WHERE \"Numero_de_fases\" = (SELECT MAX(\"Numero_de_fases\")FROM \"Num_fases_por_casting_presencial3\") ";
-            ResultSet rs = st.executeQuery(query3);
-
-            while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
-            }
-
-            String query4 = "";
-            st.executeUpdate(query4);
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
+//    public void q18() {
+//        try {
+//            System.out.println("-------------------------------------------------------------------------"
+//                    + "\n" + "-------------------------- Decimoctava consulta ------------------------"
+//                    + "\n" + "-------------------------------------------------------------------------");
+//            System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO).");
+//
+//            String query1 = "CREATE VIEW \"Perfil_mas_demandado_casting_online\" (\"Nombre_cliente\", \"Código_casting\", \"Codigo_perfil_Perfil\") AS\n"
+//                    + "SELECT \"Nombre\", \"Código_casting\", \"Codigo_perfil_Perfil\"\n"
+//                    + "FROM \"Cliente\" INNER JOIN \"Casting_online\" ON \"Cliente\".\"Código_cliente\" = \"Casting_online\".\"Código_cliente_Cliente\" AS T1\n"
+//                    + "INNER JOIN \"Casting_online_necesita_Perfil\" ON T1.\"Código_casting\" = \"Casting_online_necesita_Perfil\".\"Código_casting_Casting_online\"\n"
+//                    + "\n"
+//                    + "CREATE VIEW \"Cliente_casting_online_necesita_perfil\" AS \n"
+//                    + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
+//                    + "FROM \"Fase\"\n"
+//                    + "GROUP BY \"Código_casting_Casting_presencial\"";
+//            Statement st = conn.createStatement();
+//            st.executeUpdate(query1);
+//
+//            String query2 = "CREATE VIEW \"Cliente_casting_online_necesita_perfil\" AS \n"
+//                    + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
+//                    + "FROM \"Fase\"\n"
+//                    + "GROUP BY \"Código_casting_Casting_presencial\" ";
+//            st.executeUpdate(query2);
+//
+//            String query3 = "SELECT \"Código_casting_Casting_presencial\", \"Numero_de_fases\" \n"
+//                    + "FROM \"Num_fases_por_casting_presencial3\"\n"
+//                    + "WHERE \"Numero_de_fases\" = (SELECT MAX(\"Numero_de_fases\")FROM \"Num_fases_por_casting_presencial3\") ";
+//            ResultSet rs = st.executeQuery(query3);
+//
+//            while (rs.next()) {
+//                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
     public void q19() {
         try {
             System.out.println("-------------------------------------------------------------------------"
@@ -605,28 +600,29 @@ public class Conector {
     public void q20() {
         try {
             System.out.println("-------------------------------------------------------------------------"
-                    + "\n" + "---------------------------- Vigesima consulta -------------------------"
+                    + "\n" + "---------------------------- Vigesima consulta --------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
             System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO).");
 
-            //ESTO ES LA CONSULTA CREACION DE LA VISTA
             String query1 = "CREATE VIEW \"Num_fases_por_casting_presencial3\" AS \n"
                     + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
                     + "FROM \"Fase\"\n"
                     + "GROUP BY \"Código_casting_Casting_presencial\" ";
+            Statement st = conn.createStatement();
+            st.executeUpdate(query1);
 
-            Statement st1 = conn.createStatement();
-            ResultSet rs1 = st1.executeQuery(query1);
+            String query2 = "SELECT \"Código_casting_Casting_presencial\", \"Numero_de_fases\" \n"
+                    + "FROM \"Num_fases_por_casting_presencial3\"\n"
+                    + "WHERE \"Numero_de_fases\" = (SELECT MAX(\"Numero_de_fases\")FROM \"Num_fases_por_casting_presencial3\") ";
+            ResultSet rs = st.executeQuery(query2);
 
-            //ESTO ES LA CONSULTA REAL
-            String query2 = "";
-
-            Statement st2 = conn.createStatement();
-            ResultSet rs2 = st2.executeQuery(query2);
-
-            while (rs2.next()) {
-                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\n");
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
             }
+
+            String query3 = "DROP VIEW \"Num_fases_por_casting_presencial3\" ";
+            st.executeUpdate(query3);
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -658,7 +654,7 @@ public class Conector {
             conector.q17();
 //            conector.q18();
             conector.q19();
-//            conector.q20();
+            conector.q20();
 
             System.out.println("Si desea salir, introduzca 0");
             entradaTeclado2 = entradaEscaner.nextLine();

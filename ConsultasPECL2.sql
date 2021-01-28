@@ -269,3 +269,6 @@ GROUP BY "Código_casting_Casting_presencial"
 SELECT "Código_casting_Casting_presencial", "Numero_de_fases" 
 FROM "Num_fases_por_casting_presencial3"
 WHERE "Numero_de_fases" = (SELECT MAX("Numero_de_fases")FROM "Num_fases_por_casting_presencial3") 
+
+/*Realizamos un drop para borrar la vista*/
+DROP VIEW "Num_fases_por_casting_presencial3" 
