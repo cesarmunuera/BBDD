@@ -68,7 +68,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Primera consulta ---------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("Mostrar el nombre de los clientes que no han contratado ningún casting.");
+            System.out.println("Mostrar el nombre de los clientes que no han contratado ningún casting." + "\n");
+            System.out.println("Código_cliente" + "\t" + "Nombre");
 
             String query = "SELECT \"Código_cliente\", \"Nombre\"\n"
                     + "	FROM \"Cliente\"\n"
@@ -93,7 +94,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Segunda consulta ---------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NOMBRE DE LOS CANDIDATOS QUE HAYAN SUPERADO TODAS LAS PRUEBAS");
+            System.out.println("MOSTRAR EL NOMBRE DE LOS CANDIDATOS QUE HAYAN SUPERADO TODAS LAS PRUEBAS" + "\n");
+            System.out.println("Nombre");
 
             String query = "SELECT \"Candidato_adulto\".\"Nombre\"\n"
                     + "	FROM \"Candidato_adulto\"\n"
@@ -118,7 +120,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Tercera consulta ---------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NÚMERO DE CANDIDATOS QUE HAY ASOCIADOS A CADA PERFIL");
+            System.out.println("MOSTRAR EL NÚMERO DE CANDIDATOS QUE HAY ASOCIADOS A CADA PERFIL" + "\n");
+            System.out.println("Numero_Candidatos" + "\t" + "Codigo_perfil_Perfil");
 
             String query = "SELECT COUNT(\"Codigo_perfil_Perfil\") AS \"Numero_Candidatos\", \"Codigo_perfil_Perfil\"\n"
                     + "	FROM \"Candidato_adulto\"\n"
@@ -133,7 +136,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -145,7 +148,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Quinta consulta ----------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NÚMERO DE CANDIDATOS QUE SE HAN PRESENTADO A CADA CASTING (QUE AL MENOS HAYAN REALIZADO UNA PRUEBA).");
+            System.out.println("MOSTRAR EL NÚMERO DE CANDIDATOS QUE SE HAN PRESENTADO A CADA CASTING (QUE AL MENOS HAYAN REALIZADO UNA PRUEBA)." + "\n");
+            System.out.println("Numero_Candidatos" + "\t" + "Codigo_candidato");
 
             String query = "SELECT COUNT(\"Código_prueba_Prueba_individual\") AS \"Numero_Candidatos\", \"Código candidato_Candidato_adulto\" AS \"Codigo_candidato\"\n"
                     + "	FROM \"Candidato_adulto_realiza_Prueba_individual\"\n"
@@ -160,7 +164,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -172,7 +176,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Sexta consulta -----------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NOMBRE Y LA DIRECCÓN DE LAS CANDIDADATAS QUE TENGAN PELO RUBIO Y SEAN DE MADRID.");
+            System.out.println("MOSTRAR EL NOMBRE Y LA DIRECCÓN DE LAS CANDIDADATAS QUE TENGAN PELO RUBIO Y SEAN DE MADRID." + "\n");
+            System.out.println("Nombre" + "\t" + "Ciudad" + "\t" + "Calle" + "\t" + "\t" + "\t" + "Portal" + "\t" + "Piso");
 
             String query = "SELECT \"Nombre\", \"Ciudad\", \"Calle\", \"Portal\", \"Piso\"\n"
                     + "	FROM \"Candidato_adulto\" INNER JOIN \"Perfil\" ON \"Candidato_adulto\".\"Codigo_perfil_Perfil\" = \"Perfil\".\"Codigo_perfil\"\n"
@@ -197,7 +202,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Septima consulta ---------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL CÓDIGO DE PERFIL DE LOS PERFILES REQUERIDOS EN LOS CASTING QUE INCLUYEN LA SUBCADENA 'ANUNCIO TV' EN SU DESCRIPCIÓN.");
+            System.out.println("MOSTRAR EL CÓDIGO DE PERFIL DE LOS PERFILES REQUERIDOS EN LOS CASTING QUE INCLUYEN LA SUBCADENA 'ANUNCIO TV' EN SU DESCRIPCIÓN." + "\n");
+            System.out.println("Codigo_perfil_Perfil" + "\t" + "Descripcion");
 
             String query = "SELECT \"Codigo_perfil_Perfil\", \"Descripción\"\n"
                     + "	FROM \"Casting_presencial_necesita_Perfil\" INNER JOIN \"Casting_presencial\" \n"
@@ -212,7 +218,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -224,7 +230,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Octava consulta ----------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL CÓDIGO DE LOS CANDIDATOS QUE TIENEN REPRESENTANTE Y TIENEN PELO 'Castanio'");
+            System.out.println("MOSTRAR EL CÓDIGO DE LOS CANDIDATOS QUE TIENEN REPRESENTANTE Y TIENEN PELO 'Castanio'" + "\n");
+            System.out.println("Codigo candidato");
 
             String query = "SELECT \"Código candidato\"\n"
                     + "	FROM \"Candidato_adulto\" INNER JOIN \"Perfil\" \n"
@@ -251,7 +258,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "----------------------------- Novena consulta ---------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL PRECIO TOTAL QUE HA DE PAGAR CADA CANDIDATO. ");
+            System.out.println("MOSTRAR EL PRECIO TOTAL QUE HA DE PAGAR CADA CANDIDATO. " + "\n");
+            System.out.println("Codigo_candidatos" + "\t" + "Coste_total");
 
             String query1 = "CREATE VIEW \"Pagos_candidatos\" AS\n"
                     + "SELECT \"Código candidato_Candidato_adulto\", T1.\"Coste\"\n"
@@ -271,7 +279,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query2);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
 
             String query3 = "DROP VIEW \"Pagos_candidatos\" CASCADE";
@@ -287,7 +295,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "----------------------------- Decima consulta ---------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NÚMERO DE CANDIDATOS ADULTOS Y EL NÚMERO DE CANDIDATOS NINIOS QUE HAY EN LA BASE DE DATOS.");
+            System.out.println("MOSTRAR EL NÚMERO DE CANDIDATOS ADULTOS Y EL NÚMERO DE CANDIDATOS NINIOS QUE HAY EN LA BASE DE DATOS." + "\n");
+            System.out.println("numero_candidatos_adultos" + "\t" + "numero_candidatos_ninios");
 
             String query = "SELECT COUNT (\"Candidato_adulto\".\"Código candidato\") \n"
                     + "AS Numero_candidatos_adultos, (SELECT COUNT (\"Candidato_ninio\".\"Código candidato\") as Numero_candidatos_ninios \n"
@@ -298,7 +307,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -310,7 +319,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "------------------------- Decimoprimera consulta ------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL DNI DE LA GENTE QUE HA DIRIGIDO EL CASTING EN EL QUE ALGUNA PRUEBA INDIVIDUAL SE HA LLEVADO A CABO EN LA SALA 'flor'");
+            System.out.println("MOSTRAR EL DNI DE LA GENTE QUE HA DIRIGIDO EL CASTING EN EL QUE ALGUNA PRUEBA INDIVIDUAL SE HA LLEVADO A CABO EN LA SALA 'flor'" + "\n");
+            System.out.println("DNI");
 
             String query = "SELECT \"DNI\"\n"
                     + "	FROM (\"Agente de casting\" INNER JOIN \"Prueba_individual\" \n"
@@ -333,7 +343,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "------------------------- Decimosegunda consulta ------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR LA PLATAFORMA WEB QUE SE HA USADO EN EL CASTING ONLINE MÁS CARO, ASÍ COMO EL NOMBRE DEL CLIENTE QUE HA CONTRATADO DICHO CASTING");
+            System.out.println("MOSTRAR LA PLATAFORMA WEB QUE SE HA USADO EN EL CASTING ONLINE MÁS CARO, ASÍ COMO EL NOMBRE DEL CLIENTE QUE HA CONTRATADO DICHO CASTING" + "\n");
+            System.out.println("Plataforma_web" + "\t" + "\t" + "\t" + "\t" + "Nombre");
 
             String query = "SELECT \"Plataforma_web\", \"Cliente\".\"Nombre\"\n"
                     + "	FROM (\"Casting_online\" INNER JOIN \"Cliente\" \n"
@@ -356,7 +367,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "-------------------------- Decimotercera consulta -----------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("Mostrar el porcentaje de clientes que hay de cada tipo");
+            System.out.println("Mostrar el porcentaje de clientes que hay de cada tipo" + "\n");
+            System.out.println("Porcentaje_empresas_moda" + "\t" + "Porcentaje_empresas_publicidad");
 
             String query1 = "CREATE VIEW \"Total_clientes\"\n"
                     + " 	AS SELECT (SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\") as \"Clientes_totales\",\n"
@@ -371,7 +383,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query2);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + rs.getString(2) + "\n");
             }
 
             String query3 = "DROP VIEW \"Total_clientes\"";
@@ -387,7 +399,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "-------------------------- Decimocuarta consulta ------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NOMBRE DE LOS CANDIDATOS QUE HAN SUPERADO ALGUNA PRUEBA DE ALGÚN CASTING, ASÍ COMO EL NOMBRE DEL CASTING");
+            System.out.println("MOSTRAR EL NOMBRE DE LOS CANDIDATOS QUE HAN SUPERADO ALGUNA PRUEBA DE ALGÚN CASTING, ASÍ COMO EL NOMBRE DEL CASTING" + "\n");
+            System.out.println("mombre_candidatos" + "\t" + "nombre_casting");
 
             String query1 = "CREATE VIEW \"Candidato_adulto_realiza3\"(Nombre_candidato_adulto, \"Código_casting\", \"Es_valido\")\n"
                     + " 	AS SELECT \"Nombre\", \"Código_casting_Casting_presencial_Fase_Prueba_individual\", \"Valido\"\n"
@@ -412,7 +425,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query3);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + rs.getString(2) + "\n");
             }
 
             String query4 = "DROP VIEW \"Candidato_adulto_realiza3\"";
@@ -431,7 +444,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "-------------------------- Decimoquinta consulta ------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL DINERO TOTAL RECAUDADO POR LA EMPRESA");
+            System.out.println("MOSTRAR EL DINERO TOTAL RECAUDADO POR LA EMPRESA" + "\n");
+            System.out.println("Dinero_total");
 
             String query1 = "CREATE VIEW \"Pagos_candidatos\" AS\n"
                     + "SELECT \"Código candidato_Candidato_adulto\", T1.\"Coste\"\n"
@@ -481,7 +495,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "-------------------------- Decimosexta consulta -------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NOMBRE Y EL TELEFONO DE LOS REPRESENTANTES QUE REPRESENTEN A DOS CANDIDATOS COMO MINIMO ");
+            System.out.println("MOSTRAR EL NOMBRE Y EL TELEFONO DE LOS REPRESENTANTES QUE REPRESENTEN A DOS CANDIDATOS COMO MINIMO " + "\n");
+            System.out.println("Nombre_representante" + "\t" + "Telefono" + "\t" + "count");
 
             String query1 = "CREATE VIEW \"Representante_con_telefono1\" (\"NIF\", \"Nombre_representante\", \"Telefono\")AS \n"
                     + "SELECT \"NIF\", \"Nombre\", \"Telefono\"\n"
@@ -504,7 +519,7 @@ public class Conector {
             ResultSet rs2 = st.executeQuery(query2);
 
             while (rs2.next()) {
-                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\n");
+                System.out.println(rs2.getString(1) + "\t" + "\t" + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\n");
             }
 
             String query3 = "DROP VIEW \"Representante_con_telefono1\" CASCADE";
@@ -520,7 +535,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "------------------------- Decimoseptima consulta ------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL DNI DE LOS ADULTOS QUE NO TENGAN REPRESENTANTE.");
+            System.out.println("MOSTRAR EL DNI DE LOS ADULTOS QUE NO TENGAN REPRESENTANTE." + "\n");
+            System.out.println("DNI");
 
             String query = "SELECT \"DNI\"\n"
                     + "FROM \"Candidato_adulto\"\n"
@@ -579,7 +595,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "-------------------------- Decimonovena consulta ------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR EL NÚMERO DE PRUEBAS SUPERADAS POR CADA NIÑO.");
+            System.out.println("MOSTRAR EL NÚMERO DE PRUEBAS SUPERADAS POR CADA NIÑO." + "\n");
+            System.out.println("Numero_pruebas (count)" + "\t" + "\t" + "Codigo candidato_Candidato_ninio");
 
             String query = "SELECT COUNT(\"Valido\"), \"Código candidato_Candidato_ninio\" \n"
                     + "FROM \"Candidato_ninio_realiza_Prueba_individual\"\n"
@@ -590,7 +607,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -602,7 +619,8 @@ public class Conector {
             System.out.println("-------------------------------------------------------------------------"
                     + "\n" + "---------------------------- Vigesima consulta --------------------------"
                     + "\n" + "-------------------------------------------------------------------------");
-            System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO).");
+            System.out.println("MOSTRAR LOS DATOS DEL PERFIL MÁS DEMANDADO ASÍ COMO EL NOMBRE DEL CLIENTE QUE LO HA REQUERIDO PARA SU CASTING (INCOMPLETO)." + "\n");
+            System.out.println("Código_casting_Casting_presencial" + "\t" + "Numero_de_fases");
 
             String query1 = "CREATE VIEW \"Num_fases_por_casting_presencial3\" AS \n"
                     + "SELECT COUNT(\"Código_de_fase\") \"Numero_de_fases\", \"Código_casting_Casting_presencial\" \n"
@@ -617,7 +635,7 @@ public class Conector {
             ResultSet rs = st.executeQuery(query2);
 
             while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\n");
+                System.out.println(rs.getString(1) + "\t" + "\t" + "\t" + "\t" + "\t" + rs.getString(2) + "\n");
             }
 
             String query3 = "DROP VIEW \"Num_fases_por_casting_presencial3\" ";
