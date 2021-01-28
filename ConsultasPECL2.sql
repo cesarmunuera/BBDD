@@ -83,7 +83,6 @@ UNION SELECT "Código candidato"
 -- 9. MOSTRAR EL PRECIO TOTAL QUE HA DE PAGAR CADA CANDIDATO. 
 
 /*CREAMOS UNA VISTA QUE AGRUPE LOS CODIGOS DE LOS CANDIDATOS CON LO QUE TIENEN QUE PAGAR POR CADA UNA DE LAS PRUEBAS QUE HAN REALIZADO*/
-DROP VIEW "Pagos_candidatos" CASCADE
 CREATE VIEW "Pagos_candidatos" AS
 SELECT "Código candidato_Candidato_adulto", T1."Coste"
 	FROM ("Candidato_adulto_realiza_Prueba_individual" INNER JOIN "Prueba_individual" 
@@ -99,6 +98,7 @@ FROM (SELECT "Código candidato_Candidato_adulto", SUM("Coste") AS "Coste_total"
 	  FROM "Pagos_candidatos" WHERE "Código candidato_Candidato_adulto" = "Código candidato_Candidato_adulto" 
 	  GROUP BY "Código candidato_Candidato_adulto") AS T1
 
+/*BORRAMOS VISTAS*/
 DROP VIEW "Pagos_candidatos" CASCADE
 			
 -- 10. MOSTRAR EL NÚMERO DE CANDIDATOS ADULTOS Y EL NÚMERO DE CANDIDATOS NINIOS QUE HAY EN LA BASE DE DATOS.
