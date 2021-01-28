@@ -3,8 +3,8 @@ package java_bbdd;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger; --------------------------------------------------------------------------------------------------- 
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Scanner;
@@ -253,9 +253,6 @@ public class Conector {
                     + "\n" + "-------------------------------------------------------------------------");
             System.out.println("MOSTRAR EL PRECIO TOTAL QUE HA DE PAGAR CADA CANDIDATO. ");
 
-//            String query = "DROP VIEW \"Pagos_candidatos\" CASCADE";
-//            Statement st = conn.createStatement();
-//            st.executeQuery(query);
             String query1 = "CREATE VIEW \"Pagos_candidatos\" AS\n"
                     + "SELECT \"Código candidato_Candidato_adulto\", T1.\"Coste\"\n"
                     + "	FROM (\"Candidato_adulto_realiza_Prueba_individual\" INNER JOIN \"Prueba_individual\" \n"
@@ -276,8 +273,10 @@ public class Conector {
             while (rs2.next()) {
                 System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\n");
             }
+
             String query3 = "DROP VIEW \"Pagos_candidatos\" CASCADE";
             st.executeUpdate(query3);
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -359,24 +358,25 @@ public class Conector {
                     + "\n" + "-------------------------------------------------------------------------");
             System.out.println("Mostrar el porcentaje de clientes que hay de cada tipo");
 
-            //ESTO ES LA CONSULTA CREACION DE LA VISTA
             String query1 = "CREATE VIEW \"Total_clientes\"\n"
                     + " 	AS SELECT (SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\") as \"Clientes_totales\",\n"
                     + "	(SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\" WHERE \"Cliente\".\"Tipo_actividad\" = True) as \"Clientes_Empresa_de_moda\", \n"
                     + "		(SELECT COUNT (\"Tipo_actividad\") FROM \"Cliente\" WHERE \"Cliente\".\"Tipo_actividad\" = False) as \"Clientes_Empresa_de_publicidad_y_cine\"";
+            Statement st = conn.createStatement();
+            st.executeUpdate(query1);
 
-            Statement st1 = conn.createStatement();
-            ResultSet rs1 = st1.executeQuery(query1);
-
-            //ESTO ES LA CONSULTA REAL
-            String query2 = "";
-
-            Statement st2 = conn.createStatement();
-            ResultSet rs2 = st2.executeQuery(query2);
+            String query2 = "SELECT (((SELECT CAST(\"Clientes_Empresa_de_moda\" AS FLOAT) FROM \"Total_clientes\") / (SELECT \"Clientes_totales\" FROM \"Total_clientes\"))*100)\n"
+                    + "AS \"Porcentaje_empresas_moda\", (((SELECT CAST(\"Clientes_Empresa_de_publicidad_y_cine\" AS FLOAT) \n"
+                    + "								  FROM \"Total_clientes\") / (SELECT \"Clientes_totales\" FROM \"Total_clientes\"))*100) AS \"Porcentaje_empresas_publicidad\"";
+            ResultSet rs2 = st.executeQuery(query2);
 
             while (rs2.next()) {
-                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\n");
+                System.out.println(rs2.getString(1) + "\t" + rs2.getString(2) + "\t" + "\n");
             }
+
+            String query3 = "DROP VIEW \"Total_clientes\"";
+            st.executeUpdate(query3);
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -609,7 +609,7 @@ public class Conector {
             conector.q10();
             conector.q11();
             conector.q12();
-//            conector.q13();
+            conector.q13();
 //            conector.q14();
 //            conector.q15();
 //            conector.q16();
