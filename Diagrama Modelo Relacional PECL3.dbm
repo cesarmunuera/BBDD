@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="167,244" last-zoom="0.5" max-obj-count="19"
+<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="416,0" last-zoom="1" max-obj-count="19"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database" is-template="false" allow-conns="true">
 </database>
@@ -54,7 +54,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </opfamily>
 
-<table name="Agente de casting" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
+<table name="Agente_de_casting" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="520" y="380"/>
@@ -81,9 +81,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="Portal" not-null="true">
 		<type name="varchar" length="20"/>
 	</column>
-	<constraint name="Agente de casting_pk" type="pk-constr" table="public.&quot;Agente de casting&quot;">
+	<constraint name="Agente de casting_pk" type="pk-constr" table="public.&quot;Agente_de_casting&quot;">
 		<columns names="numEmpleado" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="Codigo_casting_Casting_presencial" index="7"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Casting_presencial_fk" index="1"/>
+	</customidxs>
 </table>
 
 <table name="Representante" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
@@ -124,7 +132,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 <table name="Perfil" layer="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1620" y="80"/>
+	<position x="1620" y="60"/>
 	<column name="Codigo_perfil" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -188,64 +196,6 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	</customidxs>
 </table>
 
-<table name="Fase" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1660" y="340"/>
-	<column name="Codigo_de_fase" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="Fecha" not-null="true">
-		<type name="date" length="0"/>
-		<comment><![CDATA[dd/mm/aaaa]]></comment>
-	</column>
-	<constraint name="Fase_pk" type="pk-constr" table="public.&quot;Fase&quot;">
-		<columns names="Codigo_de_fase" ref-type="src-columns"/>
-	</constraint>
-
-	<customidxs object-type="column">
-		<object name="Codigo_casting_Casting_presencial" index="2"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="Casting_presencial_fk" index="1"/>
-	</customidxs>
-</table>
-
-<table name="Prueba_individual" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1600" y="880"/>
-	<column name="Codigo_prueba" not-null="true">
-		<type name="integer" length="0"/>
-		<comment><![CDATA[0 - 9999]]></comment>
-	</column>
-	<column name="Fecha" not-null="true">
-		<type name="date" length="0"/>
-		<comment><![CDATA[dd/mm/aaaa]]></comment>
-	</column>
-	<column name="Sala" not-null="true">
-		<type name="varchar" length="20"/>
-	</column>
-	<column name="Descripcion" not-null="true">
-		<type name="varchar" length="50"/>
-	</column>
-	<column name="Coste" not-null="true">
-		<type name="float" length="0"/>
-	</column>
-	<constraint name="Prueba_individual_pk" type="pk-constr" table="public.&quot;Prueba_individual&quot;">
-		<columns names="Codigo_prueba" ref-type="src-columns"/>
-	</constraint>
-
-	<customidxs object-type="column">
-		<object name="Codigo_de_fase_Fase" index="5"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="Fase_fk" index="1"/>
-	</customidxs>
-</table>
-
 <table name="Telefono_Candidato" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
@@ -255,31 +205,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 		<comment><![CDATA[Empieza por 6, 7 o 9 (pues podría tratarse tambien de un numero fijo)
 No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></comment>
 	</column>
-	<constraint name="Telefono_de_contacto_pk" type="pk-constr" table="public.&quot;Telefono_Candidato&quot;">
-		<columns names="Telefono" ref-type="src-columns"/>
-	</constraint>
 </table>
-
-<relationship name="Fase_realiza_Prueba_individual" type="rel1n" layer="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#db70ac"
-	 src-table="public.&quot;Fase&quot;"
-	 dst-table="public.&quot;Prueba_individual&quot;"
-	 src-required="true" dst-required="false"
-	 identifier="true"
->
-	<label ref-type="src-label">
-		<position x="-14.4774" y="-0.25"/>
-	</label>
-	<label ref-type="dst-label">
-		<position x="-2.20518" y="3.85"/>
-	</label>
-	<label ref-type="name-label">
-		<position x="24.4451" y="-85.1323"/>
-	</label>
-</relationship>
 
 <relationship name="Representante_tiene_Telefono_representante" type="rel1n" layer="0"
 	 src-col-pattern="{sc}_{st}"
@@ -296,7 +222,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 		<position x="3.32601" y="3.85"/>
 	</label>
 	<label ref-type="name-label">
-		<position x="276.651" y="-6.97651"/>
+		<position x="42.4042" y="-58.7323"/>
 	</label>
 	<constraint name="Telefono_representante_pk" type="pk-constr" table="public.&quot;Telefono_representante&quot;">
 		<columns names="Telefono" ref-type="src-columns"/>
@@ -356,7 +282,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 <table name="Candidato" layer="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1060" y="600"/>
+	<position x="1060" y="580"/>
 	<column name="Codigo_candidato" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -401,30 +327,6 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	<label ref-type="name-label">
 		<position x="2.80762" y="14.0677"/>
 	</label>
-</relationship>
-
-<relationship name="Candidato_realiza_Prueba_individual" type="relnn" layer="0"
-	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
-	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
-	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
-	 pk-col-pattern="id"
-	 custom-color="#942695"
-	 src-table="public.&quot;Candidato&quot;"
-	 dst-table="public.&quot;Prueba_individual&quot;"
-	 src-required="false" dst-required="false"
-	 table-name="many_Candidato_has_many_Prueba_individual">
-	<label ref-type="src-label">
-		<position x="-4.9275" y="-32.2949"/>
-	</label>
-	<label ref-type="dst-label">
-		<position x="-2.15" y="27.4634"/>
-	</label>
-	<label ref-type="name-label">
-		<position x="19.0576" y="-65.9323"/>
-	</label>
-	<column name="Valido" not-null="true">
-		<type name="bool" length="0"/>
-	</column>
 </relationship>
 
 <relationship name="Candidato_cuentacon_Representante" type="rel1n" layer="0"
@@ -472,7 +374,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	 dst-table="public.&quot;Telefono_Candidato&quot;"
 	 src-required="true" dst-required="false">
 	<label ref-type="src-label">
-		<position x="7.85" y="-6.52359"/>
+		<position x="-12.15" y="-6.52359"/>
 	</label>
 	<label ref-type="dst-label">
 		<position x="-7.3775" y="36.0649"/>
@@ -480,6 +382,10 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	<label ref-type="name-label">
 		<position x="10.6951" y="-58.3323"/>
 	</label>
+	<constraint name="Telefono_de_contacto_pk" type="pk-constr" table="public.&quot;Telefono_Candidato&quot;">
+		<columns names="Telefono" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
 </relationship>
 
 <relationship name="Candidato_adulto_hereda_de_Candidato" type="relgen" layer="0"
@@ -520,6 +426,9 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	<label ref-type="dst-label">
 		<position x="-2.15" y="-2.06424"/>
 	</label>
+	<label ref-type="name-label">
+		<position x="2.55762" y="-0.332264"/>
+	</label>
 	<column name="Casting">
 		<type name="char" length="40"/>
 	</column>
@@ -549,7 +458,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	 src-required="false" dst-required="false"
 	 table-name="many_Casting_has_many_Perfil">
 	<label ref-type="name-label">
-		<position x="-2.44238" y="-1.53226"/>
+		<position x="-2.44238" y="8.46774"/>
 	</label>
 </relationship>
 
@@ -591,7 +500,7 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#00aa00"
 	 src-table="public.&quot;Casting_presencial&quot;"
-	 dst-table="public.&quot;Agente de casting&quot;"
+	 dst-table="public.&quot;Agente_de_casting&quot;"
 	 src-required="true" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="6.0725" y="12.356"/>
@@ -601,17 +510,113 @@ No puede tener nulos (Cliente mínimo deberá tener un teléfono asociado)]]></c
 	</label>
 </relationship>
 
+<table name="Fase" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1640" y="340"/>
+	<column name="Fecha" not-null="true">
+		<type name="date" length="0"/>
+		<comment><![CDATA[dd/mm/aaaa]]></comment>
+	</column>
+	<column name="Codigo_de_fase" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="Codigo_casting_Casting_presencial" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Casting_presencial_fk" index="0"/>
+		<object name="Fase_pk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="Prueba_individual" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1620" y="720"/>
+	<column name="Codigo_prueba" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="Fecha" not-null="true">
+		<type name="date" length="0"/>
+		<comment><![CDATA[dd/mm/aaaa]]></comment>
+	</column>
+	<column name="Sala" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="Descripcion" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="Coste" not-null="true">
+		<type name="float" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="Codigo_casting_Casting_presencial_Fase" index="6"/>
+		<object name="Codigo_de_fase_Fase" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Fase_fk" index="1"/>
+		<object name="Prueba_individual_pk" index="0"/>
+	</customidxs>
+</table>
+
 <relationship name="Casting_presencial_tiene_Fase" type="rel1n" layer="0"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#3ad305"
+	 custom-color="#356f8f"
 	 src-table="public.&quot;Casting_presencial&quot;"
 	 dst-table="public.&quot;Fase&quot;"
 	 src-required="true" dst-required="false">
 	<label ref-type="name-label">
-		<position x="1.44512" y="-55.1323"/>
+		<position x="11.4451" y="-55.1323"/>
 	</label>
+	<constraint name="Fase1_pk" type="pk-constr" table="public.&quot;Fase&quot;">
+		<columns names="Codigo_de_fase" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="Fase_tiene_Prueba_individual" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#73b411"
+	 src-table="public.&quot;Fase&quot;"
+	 dst-table="public.&quot;Prueba_individual&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="src-label">
+		<position x="23.4409" y="-0.25"/>
+	</label>
+	<label ref-type="name-label">
+		<position x="9.94512" y="-89.5323"/>
+	</label>
+	<constraint name="Prueba_individual1_pk" type="pk-constr" table="public.&quot;Prueba_individual&quot;">
+		<columns names="Codigo_prueba" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0,1"/>
+</relationship>
+
+<relationship name="Candidato_realiza_Prueba_individual" type="relnn" layer="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#2b0889"
+	 src-table="public.&quot;Prueba_individual&quot;"
+	 dst-table="public.&quot;Candidato&quot;"
+	 src-required="false" dst-required="false"
+	 table-name="many_Prueba_individual1_has_many_Candidato">
+	<label ref-type="name-label">
+		<position x="-19.9424" y="-70.3323"/>
+	</label>
+	<column name="Valido">
+		<type name="bool" length="0"/>
+	</column>
 </relationship>
 
 </dbmodel>
