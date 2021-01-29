@@ -3,8 +3,6 @@ package java_bbdd;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-//import java.util.logging.Level;
-//import java.util.logging.Logger; --------------------------------------------------------------------------------------------------- 
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Scanner;
@@ -24,8 +22,8 @@ public class Conector {
 
         while (!correcto) {
 
-            //entradaTeclado = entradaEscaner.nextLine();
-            entradaTeclado = "1";//----------------------------------------------------------------------------------------------------OJO
+            entradaTeclado = entradaEscaner.nextLine();
+            //entradaTeclado = "1"; //Esto es para asignar por fuerza el valor de Administrador.
 
             if (entradaTeclado.equals("1")) {
                 user = "Administrador";
